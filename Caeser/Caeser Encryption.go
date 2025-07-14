@@ -12,6 +12,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
+		fmt.Println("Caeser Cryptography")
 		fmt.Println("1. Encrypt A Text")
 		fmt.Println("2. Decrypt A Text")
 		fmt.Println("3. Exit")
