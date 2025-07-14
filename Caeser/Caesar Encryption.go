@@ -12,11 +12,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Println("Caeser Cryptography")
-		fmt.Println("1. Encrypt A Text")
-		fmt.Println("2. Decrypt A Text")
-		fmt.Println("3. Exit")
-		fmt.Print("Pick your choice: ")
+		displayOptions()
 		fmt.Scan(&choice)
 		reader.ReadString('\n')
 
@@ -79,4 +75,12 @@ func main() {
 			fmt.Println()
 		}
 	}
+}
+
+func displayOptions() {
+	fmt.Println("Caesar Cryptography")
+	fmt.Println("1. Encrypt A Text")
+	fmt.Println("2. Decrypt A Text")
+	fmt.Println("3. Exit")
+	fmt.Print("Pick your choice: ")
 }

@@ -7,23 +7,6 @@ import (
 	"strings"
 )
 
-func normalizeText(text string) string {
-	text = strings.ToUpper(strings.TrimSpace(text))
-	return text
-}
-
-func makeKeyStream(key string, text string) []rune {
-	var keyStream []rune
-	for i, char := range text {
-		if char >= 'A' && char <= 'Z' {
-			keyStream = append(keyStream, rune(key[i%len(key)]))
-		} else {
-			keyStream = append(keyStream, char)
-		}
-	}
-	return keyStream
-}
-
 func main() {
 	var Vigenère [26][26]rune
 
@@ -38,11 +21,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Println("PolyAlphabetic Cryptography")
-		fmt.Println("1. Encrypt A Text")
-		fmt.Println("2. Decrypt A Text")
-		fmt.Println("3. Exit")
-		fmt.Print("Pick your choice: ")
+		displayOptions()
 		fmt.Scan(&choice)
 		reader.ReadString('\n')
 
@@ -103,4 +82,29 @@ func main() {
 			fmt.Println()
 		}
 	}
+}
+
+func displayOptions() {
+	fmt.Println("PolyAlphabetic Cryptography")
+	fmt.Println("1. Encrypt A Text")
+	fmt.Println("2. Decrypt A Text")
+	fmt.Println("3. Exit")
+	fmt.Print("Pick your choice: ")
+}
+
+func normalizeText(text string) string {
+	text = strings.ToUpper(strings.TrimSpace(text))
+	return text
+}
+
+func makeKeyStream(key string, text string) []rune {
+	var keyStream []rune
+	for i, char := range text {
+		if char >= 'A' && char <= 'Z' {
+			keyStream = append(keyStream, rune(key[i%len(key)]))
+		} else {
+			keyStream = append(keyStream, char)
+		}
+	}
+	return keyStream
 }
