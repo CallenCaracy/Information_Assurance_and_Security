@@ -8,6 +8,9 @@ import (
 )
 
 func main() {
+	const eName = "Caesar_Output_Encryption.txt"
+	const dName = "Caesar_Output_Dencryption.txt"
+
 	var choice int
 	reader := bufio.NewReader(os.Stdin)
 
@@ -40,6 +43,12 @@ func main() {
 			}
 
 			fmt.Println("Cipher Text:", cipherText)
+
+			getSHA1(plainText)
+
+			fileCreate(eName)
+			fileWrite(cipherText, eName)
+
 			fmt.Println()
 
 		case 2:
@@ -64,7 +73,13 @@ func main() {
 				}
 			}
 
-			fmt.Println("Cipher Text:", plainText)
+			fmt.Println("Plain Text:", plainText)
+
+			getSHA1(plainText)
+
+			fileCreate("Caesar_Output_Dencryption.txt")
+			fileWrite(plainText, dName)
+
 			fmt.Println()
 
 		case 3:
@@ -83,4 +98,28 @@ func displayOptions() {
 	fmt.Println("2. Decrypt A Text")
 	fmt.Println("3. Exit")
 	fmt.Print("Pick your choice: ")
+}
+
+func fileCreate(fileName string) {
+	file, err := os.Create(fileName)
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
+	}
+	defer file.Close()
+}
+
+func fileWrite(cipherText string, fileName string) {
+	data := []byte(cipherText)
+	err := os.WriteFile(fileName, data, 0644)
+	if err != nil {
+		fmt.Println("File writing error", err)
+		return
+	}
+	fmt.Println("Data successfully written to file")
+}
+
+func getSHA1(text string) {
+	data := []byte(text)
+	fmt.Printf("SHA1: %x\n", data)
 }
