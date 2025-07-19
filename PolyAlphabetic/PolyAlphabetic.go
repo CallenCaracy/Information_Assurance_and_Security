@@ -43,6 +43,9 @@ func main() {
 			secretKey = normalizeText(secretKey)
 			keyStream = makeKeyStream(secretKey, plainText)
 
+			fmt.Println("Plain Text (Normalized):", plainText)
+			getSHA1(plainText)
+
 			for i, char := range plainText {
 				if char >= 'A' && char <= 'Z' {
 					row := char - 'A'
@@ -58,20 +61,34 @@ func main() {
 
 		case 2:
 			var secretKey string
-			// var keyStream []rune
+			var keyStream []rune
 			var plainText string
 
 			fmt.Print("Enter text to decrypt:")
 			cipherText, _ := reader.ReadString('\n')
 			cipherText = strings.TrimSpace(cipherText)
 
-			fmt.Print("Enter shifting value: ")
+			fmt.Print("Enter key value: ")
 			fmt.Scan(&secretKey)
 			reader.ReadString('\n')
 
-			// Add PolyAlphabetic decryption logic here
+			cipherText = normalizeText(cipherText)
+			secretKey = normalizeText(secretKey)
+			keyStream = makeKeyStream(secretKey, cipherText)
 
-			fmt.Println("Cipher Text:", plainText)
+			for i, char := range cipherText {
+				if char >= 'A' && char <= 'Z' {
+					c := char - 'A'
+					k := keyStream[i] - 'A'
+					p := (c - k + 26) % 26
+					plainText += string(p + 'A')
+				} else {
+					plainText += string(char)
+				}
+			}
+
+			fmt.Println("Plain Text:", plainText)
+			getSHA1(plainText)
 			fmt.Println()
 
 		case 3:
@@ -107,4 +124,9 @@ func makeKeyStream(key string, text string) []rune {
 		}
 	}
 	return keyStream
+}
+
+func getSHA1(text string) {
+	data := []byte(text)
+	fmt.Printf("SHA1: %x\n", data)
 }

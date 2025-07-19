@@ -34,9 +34,9 @@ func main() {
 
 			for _, char := range plainText {
 				if char >= 'a' && char <= 'z' {
-					cipherText += string((char-'a'+rune(shifting))%26 + 'a')
+					cipherText += string((char-'a'+rune(shifting)+26)%26 + 'a')
 				} else if char >= 'A' && char <= 'Z' {
-					cipherText += string((char-'A'+rune(shifting))%26 + 'A')
+					cipherText += string((char-'A'+rune(shifting)+26)%26 + 'A')
 				} else {
 					cipherText += string(char)
 				}
